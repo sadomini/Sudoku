@@ -12,6 +12,7 @@
 #include "SudokuDoc.h"
 #include "SudokuView.h"
 
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
@@ -48,7 +49,7 @@ BOOL CSudokuView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CSudokuView drawing
 
-void CSudokuView::OnDraw(CDC* /*pDC*/)
+void CSudokuView::OnDraw(CDC* pDC)
 {
 	CSudokuDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -56,6 +57,35 @@ void CSudokuView::OnDraw(CDC* /*pDC*/)
 		return;
 
 	// TODO: add draw code for native data here
+	
+	CRect rect;
+	GetClientRect(&rect);
+	int  widthRect = rect.Width() / 20;
+	int hightRect = rect.Height() / 12;
+	pDC->TextOutW(widthRect, hightRect, _T("Sudoku"));
+
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+
+			int x1 = widthRect * (j + 1);
+			int y1 = hightRect * (i + 2);
+			int x2 = x1 + widthRect;
+			int y2 = y1 + hightRect;
+
+			CRect miniRect(CPoint(x1, y1), CPoint(x2, y2));
+			pDC->Rectangle(x1, y1, x2, y2);
+
+			CString string;
+			if (pDoc->predlozak[i][j] == 0)
+				string.Format(_T(" "), pDoc->predlozak[i][j]);
+			else
+				string.Format(_T("%d "), pDoc->predlozak[i][j]);
+
+
+			pDC->DrawText(string, -1, &miniRect, DT_SINGLELINE | DT_CENTER | DT_VCENTER);
+		}
+
+	}
 }
 
 void CSudokuView::OnRButtonUp(UINT /* nFlags */, CPoint point)

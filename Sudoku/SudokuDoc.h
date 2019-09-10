@@ -13,10 +13,22 @@ protected: // create from serialization only
 	DECLARE_DYNCREATE(CSudokuDoc)
 
 // Attributes
+private:
+	int tezinaIgre;
+	int **sekcija;
 public:
 
+	int **predlozak;
+
 // Operations
-public:
+private:
+	bool provjeraSekcije(int i, int ir, int is);
+	void izradaSekcije();
+	void randomKolona();
+	void zamjenaKolRed();
+	void randomRed();
+	void postaviZaIgru();
+	void izradaPredloska();
 
 // Overrides
 public:
