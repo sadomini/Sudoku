@@ -30,7 +30,7 @@ END_MESSAGE_MAP()
 CSudokuDoc::CSudokuDoc() noexcept
 {
 	// TODO: add one-time construction code here
-	tezinaIgre =10;
+	tezinaIgre =5;
 	sekcija = new int*[9];
 	predlozak = new int*[9];
 
