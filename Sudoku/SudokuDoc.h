@@ -4,6 +4,8 @@
 
 
 #pragma once
+#include<vector>	
+#include<algorithm>
 
 
 class CSudokuDoc : public CDocument
@@ -14,11 +16,11 @@ protected: // create from serialization only
 
 // Attributes
 private:
+	std::vector <std::vector <int> >sekcija;
+	
 	int tezinaIgre;
-	int **sekcija;
 public:
-
-	int **predlozak;
+	std::vector <std::vector <int> >predlozak;
 
 // Operations
 private:

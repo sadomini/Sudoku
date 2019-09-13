@@ -12,11 +12,12 @@
 #include "SudokuDoc.h"
 #include "SudokuView.h"
 #include <propkey.h>
-
+#include<vector>
+#include<array>
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-
+using namespace std;
 // CSudokuDoc
 
 IMPLEMENT_DYNCREATE(CSudokuDoc, CDocument)
@@ -30,16 +31,13 @@ END_MESSAGE_MAP()
 CSudokuDoc::CSudokuDoc() noexcept
 {
 	// TODO: add one-time construction code here
-	tezinaIgre =5;
-	sekcija = new int*[9];
-	predlozak = new int*[9];
-
-	for (int i = 0; i < 9; i++) {
-		sekcija[i] = new int[9];
-		predlozak[i] = new int[9];
-	}
-	izradaPredloska();
+	vector <vector < int> > psekcija(9, vector <int>(9));
+	vector <vector <int> > npredlozak(9, vector <int>(9));
+	sekcija = psekcija;
+	predlozak = npredlozak;
+	tezinaIgre = 5;
 	izradaSekcije();
+	izradaPredloska();
 	randomKolona();
 	zamjenaKolRed();
 	randomRed();
@@ -48,12 +46,7 @@ CSudokuDoc::CSudokuDoc() noexcept
 
 CSudokuDoc::~CSudokuDoc()
 {
-	for (int i = 0; i < 9; i++) {
-		delete[] sekcija[i];
-		delete[] predlozak[i];
-	}
-	delete[] sekcija;
-	delete[] predlozak;
+	
 }
 
 BOOL CSudokuDoc::OnNewDocument()
@@ -169,33 +162,18 @@ void CSudokuDoc::izradaSekcije() {
 }
 void CSudokuDoc::izradaPredloska() {
 
-	for (int i = 0; i < 9; i++) {
-		for (int j = 0; j < 9; j++) {
-			int var[2][3];
+	array<int, 9>arr;
+	for (int i = 0; i != 9; i++)
+		arr[i] = i + 1;
 
-			if (i / 3 == 0) {
-				if (3 * i + j + 1 < 10)
-					predlozak[i][j] = 3 * i + j + 1;
-				else
-					predlozak[i][j] = 3 * i + j - 8;
-				var[0][i] = predlozak[i][8];
-			}
-			if (i / 3 == 1) {
-				if (j + var[0][i % 3] < 10)
-					predlozak[i][j] = j + var[0][i % 3];
-				else
-					predlozak[i][j] = j + var[0][i % 3] - 9;
-				var[1][i % 3] = predlozak[i][8];
-			}
-			if (i / 3 == 2) {
-				if (j + var[1][i % 3] < 10)
-					predlozak[i][j] = j + var[1][i % 3];
-				else
-					predlozak[i][j] = j + var[1][i % 3] - 9;
-			}
-		}
+	copy(arr.begin(), arr.end(), predlozak[0].begin());
+	   
+	for (int i = 1, k = 3; i < 9; i++) {
+		if (i % 3 == 0)
+			rotate_copy(predlozak[i - 1].begin(), predlozak[i - 1].begin() + k - 1, predlozak[i - 1].end(), predlozak[i].begin());
+		else
+			rotate_copy(predlozak[i - 1].begin(), predlozak[i - 1].begin() + k, predlozak[i - 1].end(), predlozak[i].begin());
 	}
-
 }
 bool CSudokuDoc::provjeraSekcije(int i, int ir, int is) {
 	int index_1 = sekcija[i][ir];
@@ -212,22 +190,18 @@ bool CSudokuDoc::provjeraSekcije(int i, int ir, int is) {
 
 void CSudokuDoc::randomKolona() {
 	srand(time(NULL));
-	int brojObrtaja = 100;
+
+	int brojObrtaja = 10;
 	for (int p = 0; p < brojObrtaja; p++) {
 		int kolona_1 = rand() % 9;
 		int kolona_2 = rand() % 9;
 
+
 		if (kolona_1 == kolona_2)
 			continue;
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (provjeraSekcije(i, kolona_1, kolona_2) && provjeraSekcije(i, kolona_2, kolona_1)) {
-					predlozak[i][kolona_1] += predlozak[i][kolona_2];
-					predlozak[i][kolona_2] = predlozak[i][kolona_1] - predlozak[i][kolona_2];
-					predlozak[i][kolona_1] -= predlozak[i][kolona_2];
-				}
-				else break;
-			}
+		if (sekcija[0][kolona_1] == sekcija[0][kolona_2]) {
+			for (int i = 0; i < 9; i++)
+				swap(predlozak[i][kolona_1], predlozak[i][kolona_2]);
 		}
 	}
 }
@@ -236,31 +210,23 @@ void CSudokuDoc::zamjenaKolRed() {
 		for (int j = 0; j < 9; j++) {
 			if (j <= i)
 				continue;
-			predlozak[i][j] += predlozak[j][i];
-			predlozak[j][i] = predlozak[i][j] - predlozak[j][i];
-			predlozak[i][j] -= predlozak[j][i];
+			swap(predlozak[i][j], predlozak[j][i]);
 		}
 	}
 }
 void CSudokuDoc::randomRed() {
 
-	int brojObrtaja = 100;
+	int brojObrtaja = 10;
 	for (int p = 0; p < brojObrtaja; p++) {
 		int red_1 = rand() % 9;
 		int red_2 = rand() % 9;
-
+		
 		if (red_1 == red_2)
 			continue;
-		for (int i = 0; i < 9; i++) {
-			for (int j = 0; j < 9; j++) {
-				if (provjeraSekcije(j, red_1, red_2) && provjeraSekcije(j, red_2, red_1)) {
-					predlozak[red_1][j] += predlozak[red_2][j];
-					predlozak[red_2][j] = predlozak[red_1][j] - predlozak[red_2][j];
-					predlozak[red_1][j] -= predlozak[red_2][j];
-				}
-				else break;
-			}
-		}
+		if (sekcija[red_1][0] == sekcija[red_2][0])
+			swap_ranges(predlozak[red_1].begin(), predlozak[red_1].end(), predlozak[red_2].begin());
+
+
 	}
 }
 void CSudokuDoc::postaviZaIgru() {
@@ -270,21 +236,17 @@ void CSudokuDoc::postaviZaIgru() {
 
 		if (i / 3 == 0) {
 			do {
-
-				int jr = rand() % 9;
-				predlozak[i][jr] = 0;
+				replace(predlozak[i].begin(), predlozak[i].end(), predlozak[i][rand() % 9], 0);
 			} while (++k < tezinaIgre);
 		}
 		if (i / 3 == 1) {
 			do {
-				int jr = rand() % 9;
-				predlozak[i][jr] = 0;
+				replace(predlozak[i].begin(), predlozak[i].end(), predlozak[i][rand() % 9], 0);
 			} while (++k < tezinaIgre);
 		}
 		if (i / 3 == 2) {
 			do {
-				int jr = rand() % 9;
-				predlozak[i][jr] = 0;
+				replace(predlozak[i].begin(), predlozak[i].end(), predlozak[i][rand() % 9], 0);
 			} while (++k < tezinaIgre);
 		}
 	}
