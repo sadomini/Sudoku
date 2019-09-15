@@ -29,6 +29,16 @@
 #define ID_VIEW_APPLOOK_WINDOWS_7	219
 #define IDS_EDIT_MENU				306
 
+#define IDC_BUTTON1					401
+#define IDC_BUTTON2					402
+#define IDC_BUTTON3					403
+#define IDC_BUTTON4					404
+#define IDC_BUTTON5					405
+#define IDC_BUTTON6					406
+#define IDC_BUTTON7					407
+#define IDC_BUTTON8					408
+#define IDC_BUTTON9					409
+
 // Next default values for new objects
 //
 #ifdef APSTUDIO_INVOKED

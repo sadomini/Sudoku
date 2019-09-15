@@ -251,3 +251,6 @@ void CSudokuDoc::postaviZaIgru() {
 		}
 	}
 }
+int CSudokuDoc::getIndex(int i, int j) {
+	return sekcija[i][j];
+}

@@ -31,7 +31,8 @@ private:
 	void randomRed();
 	void postaviZaIgru();
 	void izradaPredloska();
-
+public:
+	int getIndex(int i, int j);
 // Overrides
 public:
 	virtual BOOL OnNewDocument();
