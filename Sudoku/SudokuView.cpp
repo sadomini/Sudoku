@@ -27,15 +27,17 @@ BEGIN_MESSAGE_MAP(CSudokuView, CView)
 	ON_WM_RBUTTONUP()
 	ON_WM_LBUTTONUP()
 	ON_WM_CREATE()
-	/*ON_BN_CLICKED(IDC_BUTTON1, OnBnClicked1)
-	ON_BN_CLICKED(IDC_BUTTON2, OnBnClicked2)
-	ON_BN_CLICKED(IDC_BUTTON3, OnBnClicked3)
-	ON_BN_CLICKED(IDC_BUTTON4, OnBnClicked4)
-	ON_BN_CLICKED(IDC_BUTTON5, OnBnClicked5)
-	ON_BN_CLICKED(IDC_BUTTON6, OnBnClicked6)
-	ON_BN_CLICKED(IDC_BUTTON7, OnBnClicked7)
-	ON_BN_CLICKED(IDC_BUTTON8, OnBnClicked8)
-	ON_BN_CLICKED(IDC_BUTTON9, OnBnClicked9)*/
+	
+	ON_COMMAND(ID_TB_BUTTON1, &CSudokuView::OnTbButton1)
+	ON_COMMAND(ID_TB_BUTTON2, &CSudokuView::OnTbButton2)
+	ON_COMMAND(ID_TB_BUTTON3, &CSudokuView::OnTbButton3)
+	ON_COMMAND(ID_TB_BUTTON4, &CSudokuView::OnTbButton4)
+	ON_COMMAND(ID_TB_BUTTON5, &CSudokuView::OnTbButton5)
+	ON_COMMAND(ID_TB_BUTTON6, &CSudokuView::OnTbButton6)
+	ON_COMMAND(ID_TB_BUTTON7, &CSudokuView::OnTbButton7)
+	ON_COMMAND(ID_TB_BUTTON8, &CSudokuView::OnTbButton8)
+	ON_COMMAND(ID_TB_BUTTON9, &CSudokuView::OnTbButton9)
+	ON_COMMAND(ID_TB_BUTTONX, &CSudokuView::OnTbButtonx)
 END_MESSAGE_MAP()
 
 // CSudokuView construction/destruction
@@ -205,22 +207,64 @@ void CSudokuView::OnLButtonUp(UINT nFlags, CPoint point)
 }
 
 
-int CSudokuView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+
+
+
+void CSudokuView::OnTbButton1()
 {
-	if (CView::OnCreate(lpCreateStruct) == -1)
-		return -1;
+	// TODO: Add your command handler code here
+}
 
-	// TODO:  Add your specialized creation code here
-	button_1.Create(_T("1"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 100, 745, 147), this, IDC_BUTTON1);
-	button_2.Create(_T("2"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 152, 745, 199), this, IDC_BUTTON2);
-	button_3.Create(_T("3"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 204, 745, 251), this, IDC_BUTTON3);
-	button_4.Create(_T("4"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 256, 745, 303), this, IDC_BUTTON4);
-	button_5.Create(_T("5"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 308, 745, 355), this, IDC_BUTTON5);
-	button_6.Create(_T("6"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 360, 745, 407), this, IDC_BUTTON6);
-	button_7.Create(_T("7"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 415, 745, 462), this, IDC_BUTTON7);
-	button_8.Create(_T("8"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 467, 745, 514), this, IDC_BUTTON8);
-	button_9.Create(_T("9"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 519, 745, 566), this, IDC_BUTTON9);
-	return 0;
 
-	return 0;
+void CSudokuView::OnTbButton2()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton3()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton4()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton5()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton6()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton7()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton8()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButton9()
+{
+	// TODO: Add your command handler code here
+}
+
+
+void CSudokuView::OnTbButtonx()
+{
+	// TODO: Add your command handler code here
 }
