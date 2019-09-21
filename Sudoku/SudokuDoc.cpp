@@ -33,8 +33,10 @@ CSudokuDoc::CSudokuDoc() noexcept
 	// TODO: add one-time construction code here
 	vector <vector < int> > psekcija(9, vector <int>(9));
 	vector <vector <int> > npredlozak(9, vector <int>(9));
+	vector <vector <int> > nposjeta(9, vector <int>(9));
 	sekcija = psekcija;
 	predlozak = npredlozak;
+	posjeta = nposjeta;
 	tezinaIgre = 5;
 	izradaSekcije();
 	izradaPredloska();
@@ -42,6 +44,7 @@ CSudokuDoc::CSudokuDoc() noexcept
 	zamjenaKolRed();
 	randomRed();
 	postaviZaIgru();
+	brojPosjeta();
 }
 
 CSudokuDoc::~CSudokuDoc()
@@ -175,18 +178,7 @@ void CSudokuDoc::izradaPredloska() {
 			rotate_copy(predlozak[i - 1].begin(), predlozak[i - 1].begin() + k, predlozak[i - 1].end(), predlozak[i].begin());
 	}
 }
-bool CSudokuDoc::provjeraSekcije(int i, int ir, int is) {
-	int index_1 = sekcija[i][ir];
-	int index_2 = sekcija[i][is];
-	int index_1red = sekcija[ir][i];
-	int index_2red = sekcija[is][i];
 
-	if (index_1 == index_2)
-		return true;
-	if (index_1red == index_2red)
-		return true;
-	return false;
-}
 
 void CSudokuDoc::randomKolona() {
 	srand(time(NULL));
@@ -251,6 +243,108 @@ void CSudokuDoc::postaviZaIgru() {
 		}
 	}
 }
+
+void CSudokuDoc::brojPosjeta() {
+
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			if (predlozak[i][j] == 0)
+				posjeta[i][j] = 1;
+		}
+	}
+
+}
 int CSudokuDoc::getIndex(int i, int j) {
 	return sekcija[i][j];
+}
+
+bool CSudokuDoc::provjeraReda(CPoint b, int a) {
+	CPoint ab;
+	int x = 0;
+	for (int i = 0; i < 9; i++) {
+		if ((b.y) == i)
+			continue;
+		if (predlozak[b.x][i] == a) {
+			ab.x = b.x;
+			ab.y = i;
+			neispravni.push_back(ab);
+			++x;
+		}
+	}
+	if (x > 0)
+		return false;
+	return true;
+}
+bool CSudokuDoc::provjeraKolone(CPoint b, int a) {
+	CPoint ab;
+	int x = 0;
+	for (int i = 0; i < 9; i++) {
+		if ((b.x) == i)
+			continue;
+		if (predlozak[i][b.y] == a) {
+			ab.x = i;
+			ab.y = b.y;
+			neispravni.push_back(ab);
+			++x;
+		}
+	}
+	if (x > 0)
+		return false;
+	return true;
+}
+
+bool CSudokuDoc::provjeraSekcije(CPoint b, int a) {
+	CPoint ab;
+	int x = 0;
+	int index = sekcija[b.x][b.y];
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			if (b.x == i && b.y == j)
+				continue;
+			if (sekcija[i][j] == index) {
+				if (predlozak[i][j] == a) {
+					ab.x = i;
+					ab.y = j;
+					neispravni.push_back(ab);
+					++x;
+				}
+			}
+		}
+	}
+	if (x > 0)
+		return false;
+	return true;
+}
+bool CSudokuDoc::IsCorrectNumber(CPoint b, int a) {
+	int x = 0;
+	neispravni.clear();
+	predlozak[b.x][b.y] = a;
+	if (provjeraReda(b, a))
+		x++;
+
+	if (provjeraKolone(b, a))
+		x++;
+
+	if (provjeraSekcije(b, a))
+		x++;
+
+	if (x == 3) {
+		return true;
+	}
+	return false;
+
+}
+int CSudokuDoc::dohvatiVrijednost(int i, int j) {
+	return predlozak[i][j];
+}
+
+void CSudokuDoc::SetNumber(int number, int i, int j)
+{	
+	predlozak[i][j] = number;
+}
+
+bool CSudokuDoc::zaZamjenu(int i, int j) {
+	if (posjeta[i][j] == 1)
+		return true;
+	return false;
 }

@@ -3,7 +3,10 @@
 //
 
 #pragma once
-
+#include <vector>
+#include<algorithm>
+#include<iterator>
+using namespace std;
 
 class CSudokuView : public CView
 {
@@ -14,14 +17,16 @@ protected: // create from serialization only
 // Attributes
 public:
 	CSudokuDoc* GetDocument() const;
-	
+private:
+	CPoint position;
+	vector <CRect> vm_colorRect;
 	int widthRect;
 	int hightRect;
 
 	COLORREF yell;
 	COLORREF green;
 	COLORREF m_color;
-
+	CRect m_redRect;
 	CRect m_rect;
 
 
