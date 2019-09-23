@@ -1,7 +1,4 @@
-//{{NO_DEPENDENCIES}}
-// Microsoft Visual C++ generated include file.
-// Used by Sudoku.rc
-//
+
 #define IDD_ABOUTBOX                    100
 #define IDR_POPUP_EDIT                  119
 #define ID_STATUSBAR_PANE1              120
@@ -33,15 +30,6 @@
 #define IDC_BUTTON_MEDIUM               311
 #define IDC_BUTTON_HARD                 312
 #define IDC_BUTTON_EASY                 313
-#define IDC_BUTTON1                     401
-#define IDC_BUTTON2                     402
-#define IDC_BUTTON3                     403
-#define IDC_BUTTON4                     404
-#define IDC_BUTTON5                     405
-#define IDC_BUTTON6                     406
-#define IDC_BUTTON7                     407
-#define IDC_BUTTON8                     408
-#define IDC_BUTTON9                     409
 #define ID_TB_BUTTON1                   32779
 #define ID_TB_BUTTON2                   32780
 #define ID_TB_BUTTON6                   32784
@@ -56,8 +44,7 @@
 #define IDS_STRING_MEDIUM               57655
 #define IDS_STRING_HARD                 57656
 
-// Next default values for new objects
-// 
+
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311

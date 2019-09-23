@@ -1,10 +1,6 @@
 
-// SudokuView.cpp : implementation of the CSudokuView class
-//
-
 #include "stdafx.h"
-// SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
-// and search filter handlers and allows sharing of document code with that project.
+
 #ifndef SHARED_HANDLERS
 #include "Sudoku.h"
 #endif
@@ -17,8 +13,6 @@
 #define new DEBUG_NEW
 #endif
 
-
-// CSudokuView
 
 IMPLEMENT_DYNCREATE(CSudokuView, CView)
 
@@ -43,7 +37,7 @@ BEGIN_MESSAGE_MAP(CSudokuView, CView)
 	ON_BN_CLICKED(IDC_BUTTON_HARD, &CSudokuView::OnBnClicked3)
 END_MESSAGE_MAP()
 
-// CSudokuView construction/destruction
+
 
 CSudokuView::CSudokuView() noexcept
 {	
@@ -59,13 +53,9 @@ CSudokuView::~CSudokuView()
 
 BOOL CSudokuView::PreCreateWindow(CREATESTRUCT& cs)
 {
-	// TODO: Modify the Window class or styles here by modifying
-	//  the CREATESTRUCT cs
-
+	
 	return CView::PreCreateWindow(cs);
 }
-
-// CSudokuView drawing
 
 void CSudokuView::OnDraw(CDC* pDC)
 {
@@ -73,13 +63,10 @@ void CSudokuView::OnDraw(CDC* pDC)
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
-	// TODO: add draw code for native data here
 	
 	CFont font;
 	font.CreatePointFont(160, _T("Times New Roman"));
 	CFont *oldFont = pDC->SelectObject(&font);
-
 
 	CBrush brushYell;
 	brushYell.CreateSolidBrush(yell);
@@ -100,7 +87,6 @@ void CSudokuView::OnDraw(CDC* pDC)
 
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
-
 			int x1 = widthRect * (j + 1);
 			int y1 = hightRect * (i + 2);
 			int x2 = x1 + widthRect;
@@ -112,7 +98,6 @@ void CSudokuView::OnDraw(CDC* pDC)
 			if (pDoc->getIndex(i, j) % 2 == 0) {
 				pDC->FillRect(miniRect, &brushYell);
 				pDC->FrameRect(miniRect, &brushGray);
-
 			}
 			if (pDoc->getIndex(i, j) % 2 == 1) {
 				pDC->FillRect(miniRect, &brushGreen);
@@ -170,9 +155,6 @@ void CSudokuView::OnContextMenu(CWnd* /* pWnd */, CPoint point)
 #endif
 }
 
-
-// CSudokuView diagnostics
-
 #ifdef _DEBUG
 void CSudokuView::AssertValid() const
 {
@@ -191,13 +173,8 @@ CSudokuDoc* CSudokuView::GetDocument() const // non-debug version is inline
 }
 #endif //_DEBUG
 
-
-// CSudokuView message handlers
-
-
 void CSudokuView::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	// TODO: Add your message handler code here and/or call default
 	CSudokuDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
@@ -205,7 +182,6 @@ void CSudokuView::OnLButtonUp(UINT nFlags, CPoint point)
 
 	int i = point.y / hightRect - 2;
 	int j = point.x / widthRect - 1;
-
 
 	if ((i < 0 || i>8) || (j < 0 || j>8))
 		return;
@@ -215,7 +191,6 @@ void CSudokuView::OnLButtonUp(UINT nFlags, CPoint point)
 		return;
 	position.x = i;
 	position.y = j;
-
 	int x1 = widthRect * (j + 1);
 	int y1 = hightRect * (i + 2);
 	int x2 = x1 + widthRect;
@@ -228,11 +203,7 @@ void CSudokuView::OnLButtonUp(UINT nFlags, CPoint point)
 	CView::OnLButtonUp(nFlags, point);
 }
 
-
-
-
-
-void CSudokuView::OnTbButton1()
+void CSudokuView::ToolbarButton(int a)
 {
 	CSudokuDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
@@ -261,281 +232,61 @@ void CSudokuView::OnTbButton1()
 		CString string;
 		string.LoadStringW(IDS_STRING_SOLVED);
 		AfxMessageBox(string);
-	}
+	}	
+}
 
-		
-	
+
+void CSudokuView::OnTbButton1()
+{
+	ToolbarButton(1);	
 }
 
 
 void CSudokuView::OnTbButton2()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 2;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-	
+	ToolbarButton(2);	
 }
 
 
 void CSudokuView::OnTbButton3()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 3;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
+	ToolbarButton(3);	
 }
 
 
 void CSudokuView::OnTbButton4()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 4;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-	
+	ToolbarButton(4);	
 }
 
 
 void CSudokuView::OnTbButton5()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 5;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-	
+	ToolbarButton(5);
 }
 
 
 void CSudokuView::OnTbButton6()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 6;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-	
+	ToolbarButton(6);	
 }
 
 
 void CSudokuView::OnTbButton7()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 7;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-
+	ToolbarButton(7);
 }
 
 
 void CSudokuView::OnTbButton8()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 8;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-	
+	ToolbarButton(8);	
 }
 
 
 void CSudokuView::OnTbButton9()
 {
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-
-	if (position.x < 0 && position.y < 0)
-		return;
-	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
-		return;
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 9;
-
-	if (!pDoc->IsCorrectNumber(position, number)) {
-		for (int i = 0; i != pDoc->neispravni.size(); i++) {
-			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
-				vm_colorRect.push_back(m_redRect);
-			}
-		}
-	}
-	Invalidate();
-	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
-		CString string;
-		string.LoadStringW(IDS_STRING_SOLVED);
-		AfxMessageBox(string);
-	}
-	
+	ToolbarButton(9);	
 }
 
 
@@ -549,8 +300,7 @@ void CSudokuView::OnTbButtonx()
 	if (position.x < 0 && position.y < 0)
 		return;
 	pDoc->SetNumber(0, position.x, position.y);
-
-
+	
 	Invalidate();
 }
 
@@ -571,7 +321,8 @@ int CSudokuView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	return 0;
 }
-void CSudokuView::OnBnClicked1() {
+void CSudokuView::buttonTezina(int tzn)
+{
 	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
 	position.x = -1;
 	position.y = -1;
@@ -579,29 +330,22 @@ void CSudokuView::OnBnClicked1() {
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-	pDoc->postaviTezinu(5);
+	pDoc->postaviTezinu(tzn);
 	Invalidate();
-
 }
+
+void CSudokuView::OnBnClicked1() {
+	buttonTezina(5);
+}
+
 void CSudokuView::OnBnClicked2() {
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	position.x = -1;
-	position.y = -1;
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-	pDoc->postaviTezinu(8);
-	Invalidate();
+	buttonTezina(8);
 }
 void CSudokuView::OnBnClicked3() {
-	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	position.x = -1;
-	position.y = -1;
-	CSudokuDoc* pDoc = GetDocument();
-	ASSERT_VALID(pDoc);
-	if (!pDoc)
-		return;
-	pDoc->postaviTezinu(11);
-	Invalidate();
+	buttonTezina(11);
 }
+
+
+
+
+

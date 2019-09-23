@@ -1,16 +1,14 @@
 
-// SudokuDoc.h : interface of the CSudokuDoc class
-//
-
-
 #pragma once
-#include<vector>	
+
 #include<algorithm>
+#include<vector>	
+#include<array>
 
 
 class CSudokuDoc : public CDocument
 {
-protected: // create from serialization only
+protected: 
 	CSudokuDoc() noexcept;
 	DECLARE_DYNCREATE(CSudokuDoc)
 
@@ -25,7 +23,7 @@ public:
 
 	std::vector< CPoint>neispravni;
 
-// Operations
+
 private:
 	void izradaSekcije();
 	void randomKolona();
@@ -46,16 +44,14 @@ public:
 	bool IsFull();
 
 
-// Overrides
 public:
 	virtual BOOL OnNewDocument();
 	virtual void Serialize(CArchive& ar);
 #ifdef SHARED_HANDLERS
 	virtual void InitializeSearchContent();
 	virtual void OnDrawThumbnail(CDC& dc, LPRECT lprcBounds);
-#endif // SHARED_HANDLERS
+#endif 
 
-// Implementation
 public:
 	virtual ~CSudokuDoc();
 #ifdef _DEBUG
@@ -65,14 +61,14 @@ public:
 
 protected:
 
-// Generated message map functions
+
 protected:
 	DECLARE_MESSAGE_MAP()
 
 #ifdef SHARED_HANDLERS
 	// Helper function that sets search content for a Search Handler
 	void SetSearchContent(const CString& value);
-#endif // SHARED_HANDLERS
+#endif
 public:
 	void SetNumber(int number, int i, int j);
 	bool zaZamjenu(int i, int j);

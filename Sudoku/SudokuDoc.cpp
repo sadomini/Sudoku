@@ -1,10 +1,6 @@
 
-// SudokuDoc.cpp : implementation of the CSudokuDoc class
-//
-
 #include "stdafx.h"
-// SHARED_HANDLERS can be defined in an ATL project implementing preview, thumbnail
-// and search filter handlers and allows sharing of document code with that project.
+
 #ifndef SHARED_HANDLERS
 #include "Sudoku.h"
 #endif
@@ -12,13 +8,11 @@
 #include "SudokuDoc.h"
 #include "SudokuView.h"
 #include <propkey.h>
-#include<vector>
-#include<array>
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
-using namespace std;
-// CSudokuDoc
+
 
 IMPLEMENT_DYNCREATE(CSudokuDoc, CDocument)
 
@@ -26,14 +20,11 @@ BEGIN_MESSAGE_MAP(CSudokuDoc, CDocument)
 END_MESSAGE_MAP()
 
 
-// CSudokuDoc construction/destruction
-
 CSudokuDoc::CSudokuDoc() noexcept
-{
-	// TODO: add one-time construction code here
-	vector <vector < int> > psekcija(9, vector <int>(9));
-	vector <vector <int> > npredlozak(9, vector <int>(9));
-	vector <vector <int> > nposjeta(9, vector <int>(9));
+{	
+	std::vector <std::vector < int> > psekcija(9, std::vector <int>(9));
+	std::vector <std::vector <int> > npredlozak(9, std::vector <int>(9));
+	std::vector <std::vector <int> > nposjeta(9, std::vector <int>(9));
 	sekcija = psekcija;
 	predlozak = npredlozak;
 	posjeta = nposjeta;
@@ -50,27 +41,19 @@ BOOL CSudokuDoc::OnNewDocument()
 {
 	if (!CDocument::OnNewDocument())
 		return FALSE;
-
-	// TODO: add reinitialization code here
-	// (SDI documents will reuse this document)
-
 	return TRUE;
 }
 
-
-
-
-// CSudokuDoc serialization
 
 void CSudokuDoc::Serialize(CArchive& ar)
 {
 	if (ar.IsStoring())
 	{
-		// TODO: add storing code here
+		
 	}
 	else
 	{
-		// TODO: add loading code here
+	
 	}
 }
 
@@ -126,9 +109,8 @@ void CSudokuDoc::SetSearchContent(const CString& value)
 	}
 }
 
-#endif // SHARED_HANDLERS
+#endif 
 
-// CSudokuDoc diagnostics
 
 #ifdef _DEBUG
 void CSudokuDoc::AssertValid() const
@@ -140,10 +122,10 @@ void CSudokuDoc::Dump(CDumpContext& dc) const
 {
 	CDocument::Dump(dc);
 }
-#endif //_DEBUG
+#endif
 
 
-// CSudokuDoc commands
+
 void CSudokuDoc::izradaSekcije() {
 	for (int i = 0; i < 9; i++) {
 		for (int j = 0; j < 9; j++) {
@@ -159,7 +141,7 @@ void CSudokuDoc::izradaSekcije() {
 }
 void CSudokuDoc::izradaPredloska() {
 
-	array<int, 9>arr;
+	std::array<int, 9>arr;
 	for (int i = 0; i != 9; i++)
 		arr[i] = i + 1;
 
@@ -181,13 +163,12 @@ void CSudokuDoc::randomKolona() {
 	for (int p = 0; p < brojObrtaja; p++) {
 		int kolona_1 = rand() % 9;
 		int kolona_2 = rand() % 9;
-
-
+		
 		if (kolona_1 == kolona_2)
 			continue;
 		if (sekcija[0][kolona_1] == sekcija[0][kolona_2]) {
 			for (int i = 0; i < 9; i++)
-				swap(predlozak[i][kolona_1], predlozak[i][kolona_2]);
+				std::swap(predlozak[i][kolona_1], predlozak[i][kolona_2]);
 		}
 	}
 }
@@ -196,7 +177,7 @@ void CSudokuDoc::zamjenaKolRed() {
 		for (int j = 0; j < 9; j++) {
 			if (j <= i)
 				continue;
-			swap(predlozak[i][j], predlozak[j][i]);
+			std::swap(predlozak[i][j], predlozak[j][i]);
 		}
 	}
 }
@@ -211,8 +192,6 @@ void CSudokuDoc::randomRed() {
 			continue;
 		if (sekcija[red_1][0] == sekcija[red_2][0])
 			swap_ranges(predlozak[red_1].begin(), predlozak[red_1].end(), predlozak[red_2].begin());
-
-
 	}
 }
 void CSudokuDoc::postaviZaIgru() {
@@ -352,7 +331,7 @@ bool CSudokuDoc::zaZamjenu(int i, int j) {
 }
 bool  CSudokuDoc::IsFull() {
 	for (int i = 0; i != 9; i++) {
-		vector<int>::iterator it=find(predlozak[i].begin(), predlozak[i].end(), 0);
+		std::vector<int>::iterator it=find(predlozak[i].begin(), predlozak[i].end(), 0);
 		if (it != predlozak[i].end())
 			return false;
 	}

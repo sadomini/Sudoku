@@ -1,25 +1,21 @@
 
-// SudokuView.h : interface of the CSudokuView class
-//
-
 #pragma once
 #include <vector>
 #include<algorithm>
 #include<iterator>
-using namespace std;
 
 class CSudokuView : public CView
 {
-protected: // create from serialization only
+protected: 
 	CSudokuView() noexcept;
 	DECLARE_DYNCREATE(CSudokuView)
 
-// Attributes
+
 public:
 	CSudokuDoc* GetDocument() const;
 private:
 	CPoint position;
-	vector <CRect> vm_colorRect;
+	std::vector <CRect> vm_colorRect;
 	int widthRect;
 	int hightRect;
 
@@ -28,18 +24,10 @@ private:
 	COLORREF m_color;
 	CRect m_redRect;
 	CRect m_rect;
-
-
-// Operations
 public:
-
-// Overrides
-public:
-	virtual void OnDraw(CDC* pDC);  // overridden to draw this view
+	virtual void OnDraw(CDC* pDC);  
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-protected:
 
-// Implementation
 public:
 	virtual ~CSudokuView();
 #ifdef _DEBUG
@@ -48,13 +36,9 @@ public:
 #endif
 
 protected:
-
-// Generated message map functions
-protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnTbButton1();
 	afx_msg void OnTbButton2();
@@ -69,7 +53,7 @@ protected:
 	afx_msg void OnBnClicked1();
 	afx_msg void OnBnClicked2();
 	afx_msg void OnBnClicked3();
-	
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	
 	DECLARE_MESSAGE_MAP()
 public:
@@ -78,15 +62,11 @@ public:
 	CButton btnHard;
 	
 private:
-	
-public:
-	
-
-	
-	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	void ToolbarButton(int a);
+	void buttonTezina(int tzn);
 };
 
-#ifndef _DEBUG  // debug version in SudokuView.cpp
+#ifndef _DEBUG  
 inline CSudokuDoc* CSudokuView::GetDocument() const
    { return reinterpret_cast<CSudokuDoc*>(m_pDocument); }
 #endif

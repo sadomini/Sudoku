@@ -1,7 +1,4 @@
 
-// MainFrm.cpp : implementation of the CMainFrame class
-//
-
 #include "stdafx.h"
 #include "Sudoku.h"
 
@@ -11,7 +8,7 @@
 #define new DEBUG_NEW
 #endif
 
-// CMainFrame
+
 
 IMPLEMENT_DYNCREATE(CMainFrame, CFrameWndEx)
 
@@ -29,17 +26,15 @@ END_MESSAGE_MAP()
 
 static UINT indicators[] =
 {
-	ID_SEPARATOR,           // status line indicator
+	ID_SEPARATOR,          
 	ID_INDICATOR_CAPS,
 	ID_INDICATOR_NUM,
 	ID_INDICATOR_SCRL,
 };
 
-// CMainFrame construction/destruction
-
 CMainFrame::CMainFrame() noexcept
 {
-	// TODO: add member initialization code here
+	
 	theApp.m_nAppLook = theApp.GetInt(_T("ApplicationLook"), ID_VIEW_APPLOOK_VS_2008);
 }
 
@@ -57,19 +52,19 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if (!m_wndMenuBar.Create(this))
 	{
 		TRACE0("Failed to create menubar\n");
-		return -1;      // fail to create
+		return -1;   
 	}
 
 	m_wndMenuBar.SetPaneStyle(m_wndMenuBar.GetPaneStyle() | CBRS_SIZE_DYNAMIC | CBRS_TOOLTIPS | CBRS_FLYBY);
 
-	// prevent the menu bar from taking the focus on activation
+	
 	CMFCPopupMenu::SetForceMenuFocus(FALSE);
 
 	if (!m_wndToolBar.CreateEx(this, TBSTYLE_FLAT, WS_CHILD | WS_VISIBLE | CBRS_TOP | CBRS_GRIPPER | CBRS_TOOLTIPS | CBRS_FLYBY | CBRS_SIZE_DYNAMIC) ||
 		!m_wndToolBar.LoadToolBar(theApp.m_bHiColorIcons ? IDR_MAINFRAME_256 : IDR_MAINFRAME))
 	{
 		TRACE0("Failed to create toolbar\n");
-		return -1;      // fail to create
+		return -1;    
 	}
 
 	CString strToolBarName;
@@ -82,48 +77,43 @@ int CMainFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	ASSERT(bNameValid);
 	m_wndToolBar.EnableCustomizeButton(TRUE, ID_VIEW_CUSTOMIZE, strCustomize);
 
-	// Allow user-defined toolbars operations:
+	
 	InitUserToolbars(nullptr, uiFirstUserToolBarId, uiLastUserToolBarId);
 
 	if (!m_wndStatusBar.Create(this))
 	{
 		TRACE0("Failed to create status bar\n");
-		return -1;      // fail to create
+		return -1;    
 	}
-	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));
-
-	// TODO: Delete these five lines if you don't want the toolbar and menubar to be dockable
+	m_wndStatusBar.SetIndicators(indicators, sizeof(indicators)/sizeof(UINT));	
 	m_wndMenuBar.EnableDocking(CBRS_ALIGN_ANY);
 	m_wndToolBar.EnableDocking(CBRS_ALIGN_ANY);
 	EnableDocking(CBRS_ALIGN_ANY);
 	DockPane(&m_wndMenuBar);
 	DockPane(&m_wndToolBar);
-
-
-	// enable Visual Studio 2005 style docking window behavior
+	
 	CDockingManager::SetDockingMode(DT_SMART);
-	// enable Visual Studio 2005 style docking window auto-hide behavior
+	
 	EnableAutoHidePanes(CBRS_ALIGN_ANY);
-	// set the visual manager and style based on persisted value
+	
 	OnApplicationLook(theApp.m_nAppLook);
 
-	// Enable toolbar and docking window menu replacement
+	
 	EnablePaneMenu(TRUE, ID_VIEW_CUSTOMIZE, strCustomize, ID_VIEW_TOOLBAR);
 
-	// enable quick (Alt+drag) toolbar customization
+	
 	CMFCToolBar::EnableQuickCustomization();
 
 	if (CMFCToolBar::GetUserImages() == nullptr)
 	{
-		// load user-defined toolbar images
+		
 		if (m_UserImages.Load(_T(".\\UserImages.bmp")))
 		{
 			CMFCToolBar::SetUserImages(&m_UserImages);
 		}
 	}
 
-	// enable menu personalization (most-recently used commands)
-	// TODO: define your own basic commands, ensuring that each pulldown menu has at least one basic command.
+	
 	CList<UINT, UINT> lstBasicCommands;
 
 	lstBasicCommands.AddTail(ID_FILE_NEW);
@@ -153,15 +143,11 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 {
 	if( !CFrameWndEx::PreCreateWindow(cs) )
 		return FALSE;
-	// TODO: Modify the Window class or styles here by modifying
-	//  the CREATESTRUCT cs
-	cs.style &= ~WS_THICKFRAME;
-	return TRUE;
-
 	
+	cs.style &= ~(WS_THICKFRAME| WS_MAXIMIZEBOX);
+	
+	return TRUE;	
 }
-
-// CMainFrame diagnostics
 
 #ifdef _DEBUG
 void CMainFrame::AssertValid() const
@@ -173,10 +159,7 @@ void CMainFrame::Dump(CDumpContext& dc) const
 {
 	CFrameWndEx::Dump(dc);
 }
-#endif //_DEBUG
-
-
-// CMainFrame message handlers
+#endif 
 
 void CMainFrame::OnViewCustomize()
 {
@@ -283,15 +266,12 @@ void CMainFrame::OnUpdateApplicationLook(CCmdUI* pCmdUI)
 
 BOOL CMainFrame::LoadFrame(UINT nIDResource, DWORD dwDefaultStyle, CWnd* pParentWnd, CCreateContext* pContext)
 {
-	// base class does the real work
+	
 
 	if (!CFrameWndEx::LoadFrame(nIDResource, dwDefaultStyle, pParentWnd, pContext))
 	{
 		return FALSE;
 	}
-
-
-	// enable customization button for all user toolbars
 	BOOL bNameValid;
 	CString strCustomize;
 	bNameValid = strCustomize.LoadString(IDS_TOOLBAR_CUSTOMIZE);
