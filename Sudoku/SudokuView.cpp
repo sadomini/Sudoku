@@ -27,7 +27,7 @@ BEGIN_MESSAGE_MAP(CSudokuView, CView)
 	ON_WM_RBUTTONUP()
 	ON_WM_LBUTTONUP()
 	ON_WM_CREATE()
-	
+
 	ON_COMMAND(ID_TB_BUTTON1, &CSudokuView::OnTbButton1)
 	ON_COMMAND(ID_TB_BUTTON2, &CSudokuView::OnTbButton2)
 	ON_COMMAND(ID_TB_BUTTON3, &CSudokuView::OnTbButton3)
@@ -38,6 +38,9 @@ BEGIN_MESSAGE_MAP(CSudokuView, CView)
 	ON_COMMAND(ID_TB_BUTTON8, &CSudokuView::OnTbButton8)
 	ON_COMMAND(ID_TB_BUTTON9, &CSudokuView::OnTbButton9)
 	ON_COMMAND(ID_TB_BUTTONX, &CSudokuView::OnTbButtonx)
+	ON_BN_CLICKED(IDC_BUTTON_EASY, &CSudokuView::OnBnClicked1)
+	ON_BN_CLICKED(IDC_BUTTON_MEDIUM, &CSudokuView::OnBnClicked2)
+	ON_BN_CLICKED(IDC_BUTTON_HARD, &CSudokuView::OnBnClicked3)
 END_MESSAGE_MAP()
 
 // CSudokuView construction/destruction
@@ -493,5 +496,52 @@ void CSudokuView::OnTbButtonx()
 	pDoc->SetNumber(0, position.x, position.y);
 
 
+	Invalidate();
+}
+
+
+int CSudokuView::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if (CView::OnCreate(lpCreateStruct) == -1)
+		return -1;
+
+	btnEasy.Create(_T("Easy"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 200, 850, 250), this,IDC_BUTTON_EASY);
+	btnMedium.Create(_T("Medium"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 255, 850, 305), this, IDC_BUTTON_MEDIUM);
+	btnHard.Create(_T("Hard"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 310, 850, 360), this, IDC_BUTTON_HARD);
+
+	return 0;
+}
+void CSudokuView::OnBnClicked1() {
+	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
+	position.x = -1;
+	position.y = -1;
+	CSudokuDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	pDoc->postaviTezinu(5);
+	Invalidate();
+
+}
+void CSudokuView::OnBnClicked2() {
+	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
+	position.x = -1;
+	position.y = -1;
+	CSudokuDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	pDoc->postaviTezinu(8);
+	Invalidate();
+}
+void CSudokuView::OnBnClicked3() {
+	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
+	position.x = -1;
+	position.y = -1;
+	CSudokuDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	pDoc->postaviTezinu(11);
 	Invalidate();
 }

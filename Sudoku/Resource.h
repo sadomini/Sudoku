@@ -28,6 +28,10 @@
 #define ID_VIEW_APPLOOK_OFF_2007_AQUA   218
 #define ID_VIEW_APPLOOK_WINDOWS_7       219
 #define IDS_EDIT_MENU                   306
+#define IDB_BITMAP1                     310
+#define IDC_BUTTON_MEDIUM               311
+#define IDC_BUTTON_HARD                 312
+#define IDC_BUTTON_EASY                 313
 #define IDC_BUTTON1                     401
 #define IDC_BUTTON2                     402
 #define IDC_BUTTON3                     403
@@ -41,21 +45,23 @@
 #define ID_TB_BUTTON2                   32780
 #define ID_TB_BUTTON6                   32784
 #define ID_TB_BUTTON8                   32786
-#define ID_TB_BUTTON_ERASE              32788
 #define ID_TB_BUTTONX                   32788
 #define ID_TB_BUTTON3                   32789
 #define ID_TB_BUTTON4                   32790
 #define ID_TB_BUTTON5                   32791
 #define ID_TB_BUTTON7                   32792
 #define ID_TB_BUTTON9                   32793
+#define IDS_STRING_EASY                 57654
+#define IDS_STRING_MEDIUM               57655
+#define IDS_STRING_HARD                 57656
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        310
+#define _APS_NEXT_RESOURCE_VALUE        311
 #define _APS_NEXT_COMMAND_VALUE         32794
 #define _APS_NEXT_CONTROL_VALUE         1000
-#define _APS_NEXT_SYMED_VALUE           310
+#define _APS_NEXT_SYMED_VALUE           313
 #endif
 #endif

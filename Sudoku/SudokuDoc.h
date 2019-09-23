@@ -20,6 +20,7 @@ private:
 	std::vector <std::vector <int> >predlozak;
 	std::vector <std::vector <int> >posjeta;
 	int tezinaIgre;
+	
 public:
 
 	std::vector< CPoint>neispravni;
@@ -36,11 +37,12 @@ private:
 	bool provjeraReda(CPoint a, int b);
 	bool provjeraKolone(CPoint a, int b);
 	bool provjeraSekcije(CPoint a, int b);
+	void generiranje();
 public:
 	int getIndex(int i, int j);
 	bool IsCorrectNumber(CPoint a, int b);
 	int dohvatiVrijednost(int i, int j);
-
+	void postaviTezinu(int tezina);
 
 
 // Overrides

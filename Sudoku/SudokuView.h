@@ -54,14 +54,8 @@ protected:
 	afx_msg void OnFilePrintPreview();
 	afx_msg void OnRButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnContextMenu(CWnd* pWnd, CPoint point);
-	
-	DECLARE_MESSAGE_MAP()
-public:
+
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
-	
-private:
-	
-public:
 	afx_msg void OnTbButton1();
 	afx_msg void OnTbButton2();
 	afx_msg void OnTbButton3();
@@ -72,6 +66,24 @@ public:
 	afx_msg void OnTbButton8();
 	afx_msg void OnTbButton9();
 	afx_msg void OnTbButtonx();
+	afx_msg void OnBnClicked1();
+	afx_msg void OnBnClicked2();
+	afx_msg void OnBnClicked3();
+	
+	
+	DECLARE_MESSAGE_MAP()
+public:
+	CButton btnEasy;
+	CButton btnMedium ;
+	CButton btnHard;
+	
+private:
+	
+public:
+	
+
+	
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 };
 
 #ifndef _DEBUG  // debug version in SudokuView.cpp

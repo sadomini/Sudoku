@@ -211,6 +211,7 @@
     <ResourceCompile Include="Sudoku.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\Sudoku.ico" />
     <Image Include="res\SudokuDoc.ico" />
     <Image Include="res\Toolbar.bmp" />

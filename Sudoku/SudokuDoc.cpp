@@ -38,13 +38,7 @@ CSudokuDoc::CSudokuDoc() noexcept
 	predlozak = npredlozak;
 	posjeta = nposjeta;
 	tezinaIgre = 5;
-	izradaSekcije();
-	izradaPredloska();
-	randomKolona();
-	zamjenaKolRed();
-	randomRed();
-	postaviZaIgru();
-	brojPosjeta();
+	generiranje();
 }
 
 CSudokuDoc::~CSudokuDoc()
@@ -252,7 +246,15 @@ void CSudokuDoc::brojPosjeta() {
 				posjeta[i][j] = 1;
 		}
 	}
-
+}
+	void CSudokuDoc::generiranje() {
+		izradaSekcije();
+		izradaPredloska();
+		randomKolona();
+		zamjenaKolRed();
+		randomRed();
+		postaviZaIgru();
+		brojPosjeta();
 }
 int CSudokuDoc::getIndex(int i, int j) {
 	return sekcija[i][j];
@@ -347,4 +349,12 @@ bool CSudokuDoc::zaZamjenu(int i, int j) {
 	if (posjeta[i][j] == 1)
 		return true;
 	return false;
+}
+void CSudokuDoc::postaviTezinu(int tezina) {
+	tezinaIgre = tezina;
+	for (int i = 0; i < 9; i++) {
+		replace(posjeta[i].begin(), posjeta[i].end(), 1, 0);
+	}
+	generiranje();
+
 }
