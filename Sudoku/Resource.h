@@ -13,6 +13,7 @@
 #define ID_VIEW_CUSTOMIZE               126
 #define IDR_MAINFRAME                   128
 #define IDR_MAINFRAME_256               129
+#define IDS_STRING_SOLVED               127
 #define IDR_SudokuTYPE                  130
 #define IDR_THEME_MENU                  200
 #define ID_SET_STYLE                    201

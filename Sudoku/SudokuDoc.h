@@ -43,6 +43,7 @@ public:
 	bool IsCorrectNumber(CPoint a, int b);
 	int dohvatiVrijednost(int i, int j);
 	void postaviTezinu(int tezina);
+	bool IsFull();
 
 
 // Overrides

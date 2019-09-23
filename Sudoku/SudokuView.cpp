@@ -257,6 +257,14 @@ void CSudokuView::OnTbButton1()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+
+		
+	
 }
 
 
@@ -285,6 +293,12 @@ void CSudokuView::OnTbButton2()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+	
 }
 
 
@@ -313,6 +327,11 @@ void CSudokuView::OnTbButton3()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
 }
 
 
@@ -341,6 +360,12 @@ void CSudokuView::OnTbButton4()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+	
 }
 
 
@@ -369,6 +394,12 @@ void CSudokuView::OnTbButton5()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+	
 }
 
 
@@ -397,6 +428,12 @@ void CSudokuView::OnTbButton6()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+	
 }
 
 
@@ -425,6 +462,12 @@ void CSudokuView::OnTbButton7()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+
 }
 
 
@@ -453,6 +496,12 @@ void CSudokuView::OnTbButton8()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+	
 }
 
 
@@ -481,6 +530,12 @@ void CSudokuView::OnTbButton9()
 		}
 	}
 	Invalidate();
+	if (pDoc->IsCorrectNumber(position, number) && pDoc->IsFull()) {
+		CString string;
+		string.LoadStringW(IDS_STRING_SOLVED);
+		AfxMessageBox(string);
+	}
+	
 }
 
 
@@ -504,10 +559,15 @@ int CSudokuView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if (CView::OnCreate(lpCreateStruct) == -1)
 		return -1;
-
-	btnEasy.Create(_T("Easy"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 200, 850, 250), this,IDC_BUTTON_EASY);
-	btnMedium.Create(_T("Medium"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 255, 850, 305), this, IDC_BUTTON_MEDIUM);
-	btnHard.Create(_T("Hard"), WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 310, 850, 360), this, IDC_BUTTON_HARD);
+	CString string1;
+	CString string2;
+	CString string3;
+	string1.LoadStringW(IDS_STRING_EASY);
+	string2.LoadStringW(IDS_STRING_MEDIUM);
+	string3.LoadStringW(IDS_STRING_HARD);
+	btnEasy.Create(string1, WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 200, 850, 250), this,IDC_BUTTON_EASY);
+	btnMedium.Create(string2, WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 255, 850, 305), this, IDC_BUTTON_MEDIUM);
+	btnHard.Create(string3, WS_CHILD | WS_VISIBLE | BS_PUSHBUTTON, CRect(700, 310, 850, 360), this, IDC_BUTTON_HARD);
 
 	return 0;
 }

@@ -350,6 +350,14 @@ bool CSudokuDoc::zaZamjenu(int i, int j) {
 		return true;
 	return false;
 }
+bool  CSudokuDoc::IsFull() {
+	for (int i = 0; i != 9; i++) {
+		vector<int>::iterator it=find(predlozak[i].begin(), predlozak[i].end(), 0);
+		if (it != predlozak[i].end())
+			return false;
+	}
+	return true;
+}
 void CSudokuDoc::postaviTezinu(int tezina) {
 	tezinaIgre = tezina;
 	for (int i = 0; i < 9; i++) {
