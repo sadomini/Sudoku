@@ -1,8 +1,6 @@
 
 #pragma once
-#include <vector>
-#include<algorithm>
-#include<iterator>
+
 
 class CSudokuView : public CView
 {

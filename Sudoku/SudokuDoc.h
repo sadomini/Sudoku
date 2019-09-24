@@ -1,9 +1,7 @@
 
 #pragma once
 
-#include<algorithm>
-#include<vector>	
-#include<array>
+
 
 
 class CSudokuDoc : public CDocument
