@@ -56,9 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Sudoku.reg" />
-    <None Include="res\Sudoku.rc2">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Sudoku.rc">
@@ -66,9 +63,6 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\SudokuDoc.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\Sudoku.ico">
       <Filter>Resource Files</Filter>
     </Image>
@@ -76,6 +70,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\bitmap1.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\SudokuDoc.ico">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

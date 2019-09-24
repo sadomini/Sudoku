@@ -212,7 +212,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\Sudoku.rc2" />
     <None Include="Sudoku.reg" />
   </ItemGroup>
   <ItemGroup>
@@ -222,6 +221,7 @@
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\Sudoku.ico" />
     <Image Include="res\SudokuDoc.ico" />
+    <Image Include="res\Toolbar.bmp" />
     <Image Include="res\Toolbar256.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

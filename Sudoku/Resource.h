@@ -1,4 +1,7 @@
-
+//{{NO_DEPENDENCIES}}
+// Microsoft Visual C++ generated include file.
+// Used by Sudoku.rc
+//
 #define IDD_ABOUTBOX                    100
 #define IDR_POPUP_EDIT                  119
 #define ID_STATUSBAR_PANE1              120
@@ -8,9 +11,9 @@
 #define IDS_TOOLBAR_STANDARD            124
 #define IDS_TOOLBAR_CUSTOMIZE           125
 #define ID_VIEW_CUSTOMIZE               126
+#define IDS_STRING_SOLVED               127
 #define IDR_MAINFRAME                   128
 #define IDR_MAINFRAME_256               129
-#define IDS_STRING_SOLVED               127
 #define IDR_SudokuTYPE                  130
 #define IDR_THEME_MENU                  200
 #define ID_SET_STYLE                    201
@@ -44,7 +47,8 @@
 #define IDS_STRING_MEDIUM               57655
 #define IDS_STRING_HARD                 57656
 
-
+// Next default values for new objects
+// 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        311
