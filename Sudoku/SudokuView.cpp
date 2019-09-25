@@ -215,14 +215,14 @@ void CSudokuView::ToolbarButton(int a)
 	if (pDoc->dohvatiVrijednost(position.x, position.y) != 0)
 		return;
 	vm_colorRect.erase(vm_colorRect.begin(), vm_colorRect.end());
-	int number = 1;
+	int number = a;
 
 	if (!pDoc->IsCorrectNumber(position, number)) {
 		for (int i = 0; i != pDoc->neispravni.size(); i++) {
 			for (int j = 0; j != 2; j++) {
-				CPoint širina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
-				CPoint visina(širina.x + widthRect, širina.y + hightRect);
-				CRect m_redRect(širina, visina);
+				CPoint Å¡irina(widthRect *(pDoc->neispravni[i].y + 1), hightRect * (pDoc->neispravni[i].x + 2));
+				CPoint visina(Å¡irina.x + widthRect, Å¡irina.y + hightRect);
+				CRect m_redRect(Å¡irina, visina);
 				vm_colorRect.push_back(m_redRect);
 			}
 		}
